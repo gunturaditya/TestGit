@@ -86,13 +86,15 @@ namespace Project_Authentication
 
                 if (person != null)
                 {
-                  
-                        people.Add(person);
-                        Console.WriteLine("berhasil input.");
+                    if (people.Any(u => u.Username.Contains(person.Username)))
+                    {
+                        person.Username = person.firstName.Substring(0,2)+person.lastName.Substring(0,2)+people.Count(p=>p.Username.ToLower().Contains(person.Username.ToLower()));
+                        
+                    }
+                    people.Add(person);
+                    Console.WriteLine("berhasil input.");
 
-                    
-                 
-                   
+
                 }
                 else
                 {
@@ -105,7 +107,9 @@ namespace Project_Authentication
                 OutputMessage("Something has went wrong.");
                 addUser();  
             }
+            
             ClearOption();
+            Console.Clear();
 
         }
         
@@ -114,7 +118,9 @@ namespace Project_Authentication
             JudulOption("EDIT MENU");
             if (!isSystemEmpty())
             {
-                PrintAllUsers(); 
+                Console.WriteLine("==========================================");
+                PrintAllUsers();
+                Console.WriteLine("==========================================");
 
                 try
                 {
@@ -136,6 +142,7 @@ namespace Project_Authentication
                                 people[indexSelection] = person;
                                 Console.WriteLine("berhasil edit");
                                 ClearOption();
+                                Console.Clear();
                             }
                             else
                             {
@@ -183,9 +190,11 @@ namespace Project_Authentication
 
                     foreach (var person in cari)
                     {
+                        Console.WriteLine("==========================================");
                         id++;
                         Console.WriteLine("ID" + " " + "FirstName" + " " + "Lastname" + " " + "Username");
                         Console.WriteLine(id +" "+person.returnDetail());
+                        Console.WriteLine("==========================================");
                     }
                     
 
@@ -265,7 +274,9 @@ namespace Project_Authentication
         {
             if (!isSystemEmpty())
             {
+                Console.WriteLine("==========================================");
                 PrintAllUsers();
+                Console.WriteLine("==========================================");
             }
 
             ClearOption();
@@ -298,7 +309,7 @@ namespace Project_Authentication
         }
         public void PrintAllUsers()
         {
-            Console.WriteLine("ID" + " " + "FirstName"+" "+"Lastname"+" "+"Username");
+            Console.WriteLine("ID" + " " + "FirstName"+" "+"Lastname"+" "+"Username"+" "+"Pasword");
             var id = 1;
             foreach (var user in people)
             {
@@ -328,7 +339,7 @@ namespace Project_Authentication
                 {
                     if (!string.IsNullOrEmpty(lastname))
                     {
-
+                    
                         
                         return new Person(firstname, lastname, password);
                     }

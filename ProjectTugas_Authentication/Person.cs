@@ -29,7 +29,7 @@ namespace Project_Authentication
 
         public String returnDetail()
         {
-            return  firstName +" - "+ lastName +"-"+Username+""+"-"+Password;
+            return "  "+ firstName +"\t"+lastName +"\t"+Username+"\t"+Password;
         }
 
     }
