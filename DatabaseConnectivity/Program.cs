@@ -42,38 +42,10 @@ class Program
         query.viewByid(id1);
 
 
-
-
-        /*connection = new SqlConnection(ConnectionString);
-        connection.Open();
-        Console.WriteLine("Berhasil di buka");*/
-        // GetAllRegion();
-        //InsertRegion("Cahya Asia");
-        //  GetAllbyId(2);
-        /*   Console.WriteLine("masukan Id");
-            int id = Convert.ToInt32(Console.ReadLine());
-               Console.WriteLine("masukan region");
-                var name = Console.ReadLine();*/
-        // Console.Clear();
-        //updateDataRegion(id, name);
-        //DeleteRegion(id);
-
-
-        // region.name = "ASIA tenggara";
-        /*        Console.WriteLine("Masukan Id");
-                region.id = Convert.ToInt32(Console.ReadLine());
-
-                Console.WriteLine("Masukan Region");*/
-
-
-        //  region.id = Convert.ToInt32(Console.ReadLine());
-
-
-        // query.insert(region);
     }
     
 
-   /* public static void GetAllRegion()            // membuat method view,update,insert dan delete di 1 class Main 
+    public static void GetAllRegion()            // membuat method view,update,insert dan delete di 1 class Main 
     {
         connection = new SqlConnection(ConnectionString);
 
@@ -306,7 +278,7 @@ class Program
                 Console.WriteLine(rollback.Message);
             }
         }
-    }*/
+    }
 
 }
 

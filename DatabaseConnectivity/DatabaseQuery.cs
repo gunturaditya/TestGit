@@ -24,7 +24,9 @@ namespace DatabaseConnectivity
         {
             try
             {
+                connection = new SqlConnection(ConnectionString);
                 SqlCommand command = new SqlCommand();
+                connection.Open();
                 command.Connection = connection;
                 command.CommandText = "viewtableRegionbyid"; // menggunakan Storeprecedure 
                 command.CommandType = CommandType.StoredProcedure;
@@ -62,6 +64,7 @@ namespace DatabaseConnectivity
         }
         public void delete(int id)  //method delete untuk menghapus data berdasarkan paramater id
         {
+            connection = new SqlConnection(ConnectionString);
             connection.Open();
             SqlTransaction transaction = connection.BeginTransaction();
 
@@ -108,7 +111,7 @@ namespace DatabaseConnectivity
 
         public void insert(Region obj)  // Method inser untuk memasukan data ke database dengan paramater class Region dengan var obj
         {
-
+            connection = new SqlConnection(ConnectionString);
             connection.Open();
 
             SqlTransaction transaction = connection.BeginTransaction();
@@ -162,6 +165,7 @@ namespace DatabaseConnectivity
 
         public void update(Region obj) // method update database dengan paramater class Region 
         {
+            connection = new SqlConnection(ConnectionString);
             connection.Open();
             SqlTransaction transaction = connection.BeginTransaction();
            
@@ -214,10 +218,11 @@ namespace DatabaseConnectivity
 
         public void view() // method menampilkan isi table di database
         {
-          
+
 
             //Membuat instance untuk command
-           
+            connection = new SqlConnection(ConnectionString);
+            connection.Open();
             SqlCommand command = new SqlCommand();
             command.Connection = connection;
             command.CommandText = "SELECT * FROM region"; // dengan quary database
