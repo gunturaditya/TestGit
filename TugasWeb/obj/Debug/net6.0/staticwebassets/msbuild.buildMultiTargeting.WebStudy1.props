@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\WebStudy1.props" />
+</Project>

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<WebStudy1.Models.Profilings>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Educations)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employees)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Educations.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employees.Nik)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Employee_Nik">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Employee_Nik">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Employee_Nik">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
