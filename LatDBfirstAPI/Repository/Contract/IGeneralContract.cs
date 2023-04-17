@@ -3,9 +3,9 @@ namespace LatDBfirstAPI.Repotitory.Contract
 {
     public interface IGeneralContract<Tentity,Key>
     {
-        Task<IEnumerable<Tentity>> Getall();
+        Task<IEnumerable<Tentity>> GetallAsync();
 
-       Task <Tentity>? GetbyID(Key key);
+       Task <Tentity>? GetbyIDAsync(Key key);
         
         Task insertAsync(Tentity Entity);
         Task updateAsync(Tentity Entity);

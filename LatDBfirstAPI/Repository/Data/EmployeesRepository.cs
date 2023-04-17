@@ -40,13 +40,13 @@ namespace LatDBfirstAPI.Repotitory.Data
 
         public async Task<IEnumerable<EmployeesRole>> GetDataByRole(String name,int id)
         {
-            var getEducation = await _Education.Getall();
-            var getUniversity = await _University.Getall();
-            var getProfilling = await _profilling.Getall();
-            var getemployee = await Getall();
-            var getAccount = await _account.Getall();
-            var getAccountRole = await _accountRole.Getall();
-            var getRole = await _role.Getall();
+            var getEducation = await _Education.GetallAsync();
+            var getUniversity = await _University.GetallAsync();
+            var getProfilling = await _profilling.GetallAsync();
+            var getemployee = await GetallAsync();
+            var getAccount = await _account.GetallAsync();
+            var getAccountRole = await _accountRole.GetallAsync();
+            var getRole = await _role.GetallAsync();
 
             var getData = (from e in getEducation
                            join u in getUniversity
@@ -72,8 +72,6 @@ namespace LatDBfirstAPI.Repotitory.Data
                                AccountRole = r.Name
 
                            });
-
-
 
             return getData;
         }

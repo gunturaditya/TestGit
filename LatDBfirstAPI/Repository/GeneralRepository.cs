@@ -15,18 +15,18 @@ namespace LatDBfirstAPI.Repotitory
         }
         public async Task deleteAsync(Key key)
         {
-            var identity = await GetbyID(key);
+            var identity = await GetbyIDAsync(key);
             _context.Set<Tentity>().Remove(identity);
             await _context.SaveChangesAsync();
 
         }
 
-        public async Task< IEnumerable<Tentity>> Getall()
+        public async Task< IEnumerable<Tentity>> GetallAsync()
         {
             return await _context.Set<Tentity>().ToListAsync();
         }
 
-        public async Task<Tentity>? GetbyID(Key key)
+        public async Task<Tentity>? GetbyIDAsync(Key key)
         {
             return await _context.Set<Tentity>().FindAsync(key);
         }
