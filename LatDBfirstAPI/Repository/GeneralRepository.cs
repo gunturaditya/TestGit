@@ -13,15 +13,11 @@ namespace LatDBfirstAPI.Repotitory
         {
             _context = context;
         }
-        public  int delete(Key key)
+        public async Task deleteAsync(Key key)
         {
-            var entity = _context.Set<Tentity>().Find(key);
-            if (entity == null)
-            {
-
-            }
-            _context.Set<Tentity>().Remove(entity);
-            return _context.SaveChanges();
+            var identity = await GetbyID(key);
+            _context.Set<Tentity>().Remove(identity);
+            await _context.SaveChangesAsync();
 
         }
 
@@ -36,16 +32,16 @@ namespace LatDBfirstAPI.Repotitory
         }
 
 
-        public int insert(Tentity Entity)
+        public async Task insertAsync(Tentity Entity)
         {
-            _context.Set<Tentity>().Add(Entity);
-            return _context.SaveChanges();
+             _context.Set<Tentity>().AddAsync(Entity);
+             await _context.SaveChangesAsync();
         }
 
-        public int update(Tentity Entity)
+        public async Task updateAsync(Tentity Entity)
         {
             _context.Set<Tentity>().Update(Entity);
-            return _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

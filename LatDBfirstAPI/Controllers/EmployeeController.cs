@@ -80,6 +80,14 @@ namespace LatDBfirstAPI.Controllers
             return Ok(identity);
         }
 
+        [HttpPost("addEmployee")]
+        public async Task<IActionResult> addEmployee(Employee employee)
+        {
+            var identity = _employee.insert(employee);
+
+            return Ok(identity);
+        }
+
    
     }
 }

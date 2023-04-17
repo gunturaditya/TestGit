@@ -7,8 +7,8 @@ namespace LatDBfirstAPI.Repotitory.Contract
 
        Task <Tentity>? GetbyID(Key key);
         
-        int insert(Tentity Entity);
-        int update(Tentity Entity);
-        int delete(Key key);
+        Task insertAsync(Tentity Entity);
+        Task updateAsync(Tentity Entity);
+        Task deleteAsync(Key key);
     }
 }

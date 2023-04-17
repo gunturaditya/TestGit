@@ -15,6 +15,7 @@ var ConnectionString = builder.Configuration.GetConnectionString("Default");
 builder.Services.AddDbContext<MyContext>(options => options.UseSqlServer(ConnectionString));
 
 builder.Services.AddTransient<IEmployee,EmployeesRepository>();
+builder.Services.AddTransient<IUniversity, UniversitiesRepository>();
 
 var app = builder.Build();
 
