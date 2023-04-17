@@ -1,4 +1,7 @@
 using LatDBfirstAPI.Contexts;
+using LatDBfirstAPI.Models;
+using LatDBfirstAPI.Repository.Contract;
+using LatDBfirstAPI.Repository.Data;
 using LatDBfirstAPI.Repotitory.Contract;
 using LatDBfirstAPI.Repotitory.Data;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +19,11 @@ builder.Services.AddDbContext<MyContext>(options => options.UseSqlServer(Connect
 
 builder.Services.AddTransient<IEmployee,EmployeesRepository>();
 builder.Services.AddTransient<IUniversity, UniversitiesRepository>();
+builder.Services.AddTransient<IEducations, EducationsRepository>();
+builder.Services.AddTransient<IProfiling, ProfilingRepository>();
+builder.Services.AddTransient<IAccountRepository, AcountRepository>();
+builder.Services.AddTransient<IAccountRole, AccountRoleRepository>();
+builder.Services.AddTransient<IRole, RoleRepository>();
 
 var app = builder.Build();
 

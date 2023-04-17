@@ -75,7 +75,7 @@ namespace LatDBfirstAPI.Controllers
         [HttpPost("removeEmployee")]
         public  async Task<IActionResult> removeEmployee(string id)
         {
-            var identity = _employee.delete(id);
+            var identity = _employee.deleteAsync(id);
 
             return Ok(identity);
         }
@@ -83,7 +83,7 @@ namespace LatDBfirstAPI.Controllers
         [HttpPost("addEmployee")]
         public async Task<IActionResult> addEmployee(Employee employee)
         {
-            var identity = _employee.insert(employee);
+            var identity = _employee.insertAsync(employee);
 
             return Ok(identity);
         }

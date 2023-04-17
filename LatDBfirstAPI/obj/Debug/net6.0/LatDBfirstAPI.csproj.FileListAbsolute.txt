@@ -85,3 +85,4 @@ C:\Users\LENOVO\source\repos\APIDBfirst\LatDBfirstAPI\obj\Debug\net6.0\refint\La
 C:\Users\LENOVO\source\repos\APIDBfirst\LatDBfirstAPI\obj\Debug\net6.0\LatDBfirstAPI.pdb
 C:\Users\LENOVO\source\repos\APIDBfirst\LatDBfirstAPI\obj\Debug\net6.0\LatDBfirstAPI.genruntimeconfig.cache
 C:\Users\LENOVO\source\repos\APIDBfirst\LatDBfirstAPI\obj\Debug\net6.0\ref\LatDBfirstAPI.dll
+C:\Users\LENOVO\source\repos\APIDBfirst\LatDBfirstAPI\bin\Debug\net6.0\BCrypt.Net-Next.dll
