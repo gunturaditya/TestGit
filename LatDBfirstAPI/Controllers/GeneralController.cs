@@ -5,7 +5,7 @@ namespace LatDBfirstAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GeneralController<Tentity,key> : ControllerBase
+    public class GeneralController<Tentity> : ControllerBase
     {
       
     }

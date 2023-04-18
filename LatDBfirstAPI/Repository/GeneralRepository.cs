@@ -40,10 +40,11 @@ namespace LatDBfirstAPI.Repotitory
             return entity;
         }
 
-        public async Task updateAsync(Tentity Entity)
+        public async Task<Tentity> updateAsync(Tentity Entity)
         {
-            _context.Set<Tentity>().Update(Entity);
+             _context.Set<Tentity>().Update(Entity);
             await _context.SaveChangesAsync();
+            return Entity;
         }
     }
 }

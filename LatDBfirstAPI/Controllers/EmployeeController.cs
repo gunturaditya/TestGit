@@ -43,7 +43,7 @@ namespace LatDBfirstAPI.Controllers
         [HttpDelete]
         public async Task<IActionResult> removeEmployee(string id)
         {
-            var identity =  _employee.deleteAsync(id);
+            var identity = await _employee.deleteAsync(id);
             
             return Ok(identity);
         }

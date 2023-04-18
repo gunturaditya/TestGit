@@ -8,7 +8,7 @@ namespace LatDBfirstAPI.Repotitory.Contract
        Task <Tentity>? GetbyIDAsync(Key key);
 
         Task<Tentity?> InsertAsync(Tentity entity);
-        Task updateAsync(Tentity Entity);
+        Task<Tentity> updateAsync(Tentity Entity);
         Task<Tentity> deleteAsync(Key key);
     }
 }

@@ -152,8 +152,14 @@ namespace LatDBfirstAPI.Controllers
         [HttpPut]
         public async Task<IActionResult> updtae(University university)
         {
-            var identity = _university.updateAsync(university);
-            return Ok(identity);
+            var identity = await _university.updateAsync(university);
+            return Ok(new
+            {
+                Code = StatusCodes.Status200OK,
+                 status = HttpStatusCode.OK,
+                data = identity     
+
+            });
         }
 
 

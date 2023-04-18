@@ -39,14 +39,14 @@ namespace LatDBfirstAPI.Controllers
         [HttpPut]
         public async Task<IActionResult> Update(Education education)
         {
-            var identity =  _educations.updateAsync(education);
+            var identity = await _educations.updateAsync(education);
             return Ok(identity);
         }
         [HttpDelete]
 
         public async Task<IActionResult> Delete(int id )
         {
-            var identity = _educations.deleteAsync(id);
+            var identity = await _educations.deleteAsync(id);
             return Ok(identity);
         }
     }
