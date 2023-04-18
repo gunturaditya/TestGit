@@ -1,93 +1,60 @@
-﻿using LatDBfirstAPI.Contexts;
-using LatDBfirstAPI.Models;
-using LatDBfirstAPI.ModelV;
+﻿using LatDBfirstAPI.Models;
 using LatDBfirstAPI.Repotitory.Contract;
-using LatDBfirstAPI.Repotitory.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.Contracts;
 
 namespace LatDBfirstAPI.Controllers
 {
-
-    [ApiController]
     [Route("api/[controller]")]
-    public class EmployeeController : Controller
+    [ApiController]
+    public class EmployeeController : ControllerBase
     {
-       
-      
         private readonly IEmployee _employee;
-        private readonly ILogger<EmployeeController> _logger;
-        
-        public EmployeeController(IEmployee employee, ILogger<EmployeeController> logger)
-        {
+        public EmployeeController(IEmployee employee) {
             _employee = employee;
-            _logger = logger;
-          
         }
 
         [HttpGet]
-        public async Task<ActionResult> getEmployee()
+        public async Task<IActionResult> getall()
         {
-            var employes = await _employee.Getall();
-            return Ok(employes);
-        }
-        [HttpGet("{name}",Name = "getdata")]
-
-        public async Task<IActionResult> getdata(String name)
-        {
-            try
-            {
-                var id = 1;
-                var identity = await _employee.GetDataByRole(name, id);
-                if (identity == null)
-                {
-                    _logger.LogError($"{name} Universitas not be found in Database");
-                    return NotFound();
-                }
-                return Ok(identity);
-            }catch(Exception e) {
-                _logger.LogError($"Something wwnt wrong Inside getdata action : {e.Message} ");
-                return StatusCode(500,"Internal Error");
-            }
-
-        }
-        [HttpGet("GetEmployeeById")]
-        public async Task <IActionResult> GetEmployeeById(string id)
-        {
-            try
-            {
-                
-                var identity = await _employee.GetbyID(id);
-                if (identity == null)
-                {
-                    _logger.LogError($"{id} Universitas not be found in Database");
-                    return NotFound();
-                }
-                return Ok(identity);
-            }catch(Exception ex)
-            {
-                _logger.LogError($"Something wwnt wrong Inside getdata action : {ex.Message} ");
-                return StatusCode(500, "Internal Error");
-            }
-      
-           //return Ok(await _myContext.Universities.ToListAsync());
-        }
-        [HttpPost("removeEmployee")]
-        public  async Task<IActionResult> removeEmployee(string id)
-        {
-            var identity = _employee.deleteAsync(id);
+            var identity = await _employee.GetallAsync();
 
             return Ok(identity);
         }
 
-        [HttpPost("addEmployee")]
-        public async Task<IActionResult> addEmployee(Employee employee)
+        [HttpGet("{id}")]
+
+        public async Task<IActionResult> getdatabyid(string id)
         {
-            var identity = _employee.insertAsync(employee);
+            var identity = await _employee.GetbyIDAsync(id);
+            return Ok(identity);
+        }
+
+        [HttpGet("{name}",Name = "GetByUniversitas")]
+
+        public async Task<IActionResult> GetByUniversitas(String name)
+        {
+            var id = 1;
+            var getEmployee = await _employee.GetDataByRole(name,id);
+            return Ok(getEmployee);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> removeEmployee(string id)
+        {
+            var identity =  _employee.deleteAsync(id);
+            
+            return Ok(identity);
+        }
+        [HttpPost]
+        public async Task<IActionResult> InserEmployee(Employee employee)
+        {
+            var identity = await _employee.InsertAsync(employee);
 
             return Ok(identity);
         }
 
-   
+
     }
 }

@@ -12,54 +12,37 @@ using System.Linq;
 
 namespace LatDBfirstAPI.Repotitory.Data
 {
-    public class EmployeesRepository : GeneralRepository<Employee, string, MyContext>, IEmployee
+    public class EmployeesRepository : GeneralRepository<Employee, string, MyContext>,IEmployee
     {
-        private readonly IUniversity _University;
-        private readonly IEducations _Education;
-        private readonly IProfiling _profilling;
-        private readonly IAccountRepository _account;
+        private readonly IAccountRepository _accountRepository;
+        private readonly IUniversity _univerity;
+        private readonly IEducations _educations;
+        private readonly IProfiling _profiling;
         private readonly IAccountRole _accountRole;
         private readonly IRole _role;
-        public EmployeesRepository(MyContext context,
-        IUniversity university,
-        IProfiling profiling,
-        IEducations educations,
-        IAccountRepository account,
-        IAccountRole accountRole,
-        IRole role
 
+        public EmployeesRepository(MyContext context
             ) : base(context)
         {
-            _University = university;
-            _Education = educations;
-            _profilling = profiling;
-             _account = account;
-            _accountRole = accountRole;
-            _role = role;
+     
         }
 
-        public async Task<IEnumerable<EmployeesRole>> GetDataByRole(String name,int id)
+        public async Task<IEnumerable<EmployeesRole>> GetDataByRole(string name, int id)
         {
-            var getEducation = await _Education.GetallAsync();
-            var getUniversity = await _University.GetallAsync();
-            var getProfilling = await _profilling.GetallAsync();
-            var getemployee = await GetallAsync();
-            var getAccount = await _account.GetallAsync();
-            var getAccountRole = await _accountRole.GetallAsync();
-            var getRole = await _role.GetallAsync();
+        
 
-            var getData = (from e in getEducation
-                           join u in getUniversity
+            var getData = (from e in _context.Educations
+                           join u in _context.Universities
                           on e.UniversityId equals u.Id
-                           join p in getProfilling
+                           join p in _context.Profilings
                            on e.Id equals p.EducationId
-                           join em in getemployee
+                           join em in _context.Employees
                            on p.EmployeeNik equals em.Nik
-                           join ac in getAccount
+                           join ac in _context.Accounts
                            on em.Nik equals ac.EmployeeNik
-                           join acr in getAccountRole
+                           join acr in _context.AccountRoles
                            on ac.EmployeeNik equals acr.AccountNik
-                           join r in getRole
+                           join r in _context.Roles
                            on acr.RoleId equals r.Id
                            where u.Name == name && acr.RoleId == id
                            orderby e.Gpa descending
@@ -71,20 +54,55 @@ namespace LatDBfirstAPI.Repotitory.Data
                                Gpa = e.Gpa,
                                AccountRole = r.Name
 
-                           });
+                           }).ToListAsync();
 
-            return getData;
+            return await getData;
         }
 
-        public string GetFullName(string email)
+/*             public async Task<IEnumerable<EmployeesRole>> GetDataByRole(String name,int id)
+                {
+                    var getEducation = await _educations.GetallAsync();
+                    var getUniversity = await _univerity.GetallAsync();
+                    var getProfilling = await _profiling.GetallAsync();
+                    var getemployee = await GetallAsync();
+                    var getAccount = await _accountRepository.GetallAsync();
+                    var getAccountRole = await _accountRole.GetallAsync();
+                    var getRole = await _role.GetallAsync();
+
+                    var getData = (from e in getEducation
+                                   join u in getUniversity
+                                  on e.UniversityId equals u.Id
+                                   join p in getProfilling
+                                   on e.Id equals p.EducationId
+                                   join em in getemployee
+                                   on p.EmployeeNik equals em.Nik
+                                   join ac in getAccount
+                                   on em.Nik equals ac.EmployeeNik
+                                   join acr in getAccountRole
+                                   on ac.EmployeeNik equals acr.AccountNik
+                                   join r in getRole
+                                   on acr.RoleId equals r.Id
+                                   where u.Name == name && acr.RoleId == id
+                                   orderby e.Gpa descending
+                                   select new EmployeesRole()
+                                   {
+                                       Nik = p.EmployeeNik,
+                                       Universitas = u.Name,
+                                       NameEmployee = em.FirstName + " " + em.LastName,
+                                       Gpa = e.Gpa,
+                                       AccountRole = r.Name
+
+                                   }).ToList();
+
+                    return getData;
+                }*/
+
+
+
+        public async Task<string> GetFullNameByEmailAsync(string email)
         {
-            var employee = _context.Employees.FirstOrDefault(e => e.Email == email);
-            if (employee == null)
-                return String.Empty;
-
-            return employee.FirstName + " " + employee.LastName;
+            var employee = await _context.Employees.FirstOrDefaultAsync(e => e.Email == email);
+            return employee is null ? string.Empty : string.Concat(employee.FirstName, " ", employee.LastName);
         }
-
-
     }
 }

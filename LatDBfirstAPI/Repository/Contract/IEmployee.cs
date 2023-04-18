@@ -6,8 +6,8 @@ namespace LatDBfirstAPI.Repotitory.Contract
 {
     public interface IEmployee : IGeneralContract<Employee, string>
     {
-        string GetFullName(string email);
+        Task<string> GetFullNameByEmailAsync(string email);
 
-        Task<IEnumerable<EmployeesRole>> GetDataByRole(String name,int id);
+        Task<IEnumerable<EmployeesRole>> GetDataByRole(String name, int id);
     }
 }

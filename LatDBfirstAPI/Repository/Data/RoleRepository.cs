@@ -5,7 +5,7 @@ using LatDBfirstAPI.Repotitory;
 
 namespace LatDBfirstAPI.Repository.Data
 {
-    public class RoleRepository : GeneralRepository<Role, int, MyContext>, IRole
+    public class RoleRepository : GeneralRepository<Role, int, MyContext>,IRole
     {
         public RoleRepository(MyContext context) : base(context)
         {

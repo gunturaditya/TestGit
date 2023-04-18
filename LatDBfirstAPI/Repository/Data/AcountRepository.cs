@@ -14,7 +14,7 @@ using System.Security.Claims;
 
 namespace LatDBfirstAPI.Repotitory.Data
 {
-    public class AcountRepository : GeneralRepository<Account,string,MyContext>, IAccountRepository
+    public class AcountRepository : GeneralRepository<Account,string,MyContext>,IAccountRepository
     {
         private readonly IUniversity _University;
         private readonly IEducations _Education;
@@ -22,7 +22,8 @@ namespace LatDBfirstAPI.Repotitory.Data
         private readonly IEmployee _employee;
         private readonly IAccountRole _accountRole;
 
-        public AcountRepository(MyContext context, 
+
+        public AcountRepository(MyContext context,
         IUniversity university,
         IProfiling profiling,
         IEducations educations,
@@ -30,7 +31,6 @@ namespace LatDBfirstAPI.Repotitory.Data
         IAccountRole accountRole
          ) : base(context)
         {
-            
             _University = university;
             _Education = educations;
             _profilling = profiling;
@@ -40,8 +40,8 @@ namespace LatDBfirstAPI.Repotitory.Data
 
         public async Task<bool> LoginAsync(LoginVM loginVM)
         {
-            var getdataEmployee = await _employee.Getall();
-            var GetdataAccount = await Getall();
+            var getdataEmployee = await _employee.GetallAsync();
+            var GetdataAccount = await GetallAsync();
 
            var getdataLogin = getdataEmployee.Join(GetdataAccount,
                             e => e.Nik,
@@ -54,7 +54,7 @@ namespace LatDBfirstAPI.Repotitory.Data
             return getdataLogin is not null && Hashing.ValidatePassword(loginVM.Password, getdataLogin.Password);
         }
 
-        public async Task RegisterAsync(RegisterVM registerVM)
+        public async Task<RegisterVM> RegisterAsync(RegisterVM registerVM)
         {
             using var transaction = _context.Database.BeginTransaction();
             try
@@ -69,7 +69,7 @@ namespace LatDBfirstAPI.Repotitory.Data
                      }
                       else
                       {
-                    await _University.insertAsync(university);
+                          await _University.InsertAsync(university);
                        }
                 var education = new Education()
                 {
@@ -78,7 +78,7 @@ namespace LatDBfirstAPI.Repotitory.Data
                     Gpa = registerVM.GPA,
                     UniversityId = university.Id
                 };
-                await _Education.insertAsync(education);
+                await _Education.InsertAsync(education);
 
                 var employee = new Employee()
                 {
@@ -91,32 +91,33 @@ namespace LatDBfirstAPI.Repotitory.Data
                     Nik = registerVM.NIK,
                     PhoneNummber = registerVM.PhoneNumber
                 };
-                await _employee.insertAsync(employee);
+                await _employee.InsertAsync(employee);
                 var profiling = new Profiling()
                 {
                     EducationId = education.Id,
                     EmployeeNik = employee.Nik
                 };
-                await _profilling.insertAsync(profiling);
+                await _profilling.InsertAsync(profiling);
                 var account = new Account()
                 {
                     EmployeeNik = employee.Nik,
                     Password = Hashing.HashPassword(registerVM.Password)
                 };
-                await insertAsync(account);
+                await InsertAsync(account);
 
                 var accountrole = new AccountRole()
                 {
                     AccountNik = account.EmployeeNik,
                     RoleId = 1
                 };
-                await _accountRole.insertAsync(accountrole);
-                
+                await _accountRole.InsertAsync(accountrole);
                 await transaction.CommitAsync();
+                return registerVM; 
             }catch(Exception ex)
             {
                 transaction.Rollback();
             }
+            return null;
         }
 
 

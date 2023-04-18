@@ -6,7 +6,7 @@ namespace LatDBfirstAPI.Repotitory.Contract
     public interface IAccountRepository :IGeneralContract<Account,string>
     {
 
-        Task RegisterAsync(RegisterVM registerVM);
+        Task <RegisterVM> RegisterAsync(RegisterVM registerVM);
         Task<bool> LoginAsync(LoginVM loginVM);
 
     }
