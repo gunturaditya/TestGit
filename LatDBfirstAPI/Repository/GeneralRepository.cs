@@ -22,6 +22,12 @@ namespace LatDBfirstAPI.Repotitory
 
         }
 
+        public async Task<bool> existsAsync(Key key)
+        {
+            var entity = await GetbyIDAsync(key);
+            return entity != null;
+        }
+
         public async Task< IEnumerable<Tentity>> GetallAsync()
         {
             return await _context.Set<Tentity>().ToListAsync();

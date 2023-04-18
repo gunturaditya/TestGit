@@ -119,9 +119,9 @@ namespace LatDBfirstAPI.Controllers
         [HttpDelete("id")]
         public async Task<IActionResult> Remove(int id)
         {
-            var getdata = await _university.GetbyIDAsync(id);
+           
             var identity = await _university.deleteAsync(id);
-            if (getdata == null)
+            if (identity == null)
             {
                 return NotFound(new
                 {
@@ -153,13 +153,17 @@ namespace LatDBfirstAPI.Controllers
         public async Task<IActionResult> updtae(University university)
         {
             var identity = await _university.updateAsync(university);
-            return Ok(new
-            {
-                Code = StatusCodes.Status200OK,
-                 status = HttpStatusCode.OK,
-                data = identity     
+            
+            
+                return Ok(new
+                {
+                    Code = StatusCodes.Status200OK,
+                    status = HttpStatusCode.OK,
+                    data = identity
 
-            });
+                });
+            
+
         }
 
 

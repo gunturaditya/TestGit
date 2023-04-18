@@ -10,5 +10,7 @@ namespace LatDBfirstAPI.Repotitory.Contract
         Task<Tentity?> InsertAsync(Tentity entity);
         Task<Tentity> updateAsync(Tentity Entity);
         Task<Tentity> deleteAsync(Key key);
+
+        Task<bool> existsAsync(Key key);
     }
 }
