@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\FinalProjectS2_Guntur.Eba.props" />
+</Project>

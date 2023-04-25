@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\FinalProjectS2_Guntur.Eba.props" />
+</Project>
